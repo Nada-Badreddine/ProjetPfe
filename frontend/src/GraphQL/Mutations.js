@@ -63,7 +63,10 @@ mutation createUser ($input: UserInput)
 {
    createUser (input:$input )
  {
-   name
+   user{
+     name,
+     role
+   }
   
  }
   }
@@ -78,7 +81,12 @@ mutation loginUser ($input: UserInput)
 
    
  {
- token
+ token,
+ user{
+     name,
+     role
+   }
+
   
  }
   }

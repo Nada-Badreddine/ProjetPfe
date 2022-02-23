@@ -7,15 +7,22 @@ const Register = () => {
 
     const[email,setEmail]=useState('')
     const[password,setPassword]=useState('')
+    const[selectedRole,setSelectedRole]=useState('')
 
 
     const [createUser,{ error }] =useMutation(CREATE_USER_MUTATION)
+
+const handleChangeRole=(e)=>{
+    setSelectedRole(e.target.value)
+
+}
+
     const addUser=()=>{
  createUser(
         {
           
             variables:{
-                input:{name,password,email}
+                input:{name,password,email,role:selectedRole}
                 
               
             }
@@ -25,6 +32,7 @@ const Register = () => {
  if(error){
         console.log(error)
     }
+    console.log("aaaaaaaaaaaa",selectedRole)
     }
   return (
     <div>
@@ -42,9 +50,22 @@ const Register = () => {
                     </div>
                     <div className="form-group">
                         <label>Password : </label>
-                        <input type="text"
+                        <input type="password"
                        onChange={(e) => setPassword(e.target.value)} className="form-control" />
                     </div>
+
+                     <div className="form-group">
+                    
+                        <label>what is your role ? </label>
+                    
+                        <select value={selectedRole} 
+                        onChange={handleChangeRole} >
+                         <option value="client">client  </option>
+                         <option value="Admin">Admin  </option>
+            ) </select>
+
+
+     </div>   
                     <div className="form-group">
                         <button className="btn btn-success btn-block" onClick={addUser}> add User </button>
                     </div>

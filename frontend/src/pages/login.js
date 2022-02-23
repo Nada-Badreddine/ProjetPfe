@@ -26,7 +26,13 @@ const [loginUser,{ error }] =useMutation(LOGIN_MUTATION)
           
           onCompleted: ({ loginUser }) => {
     localStorage.setItem(AUTH_TOKEN, loginUser.token);
-    navigate('/crudproduct');
+
+     if (loginUser.user.role === 'client') {
+      navigate('/crudproduct');;
+    } else {
+      navigate('/category');;
+    }
+    
   }
             
             
@@ -37,7 +43,7 @@ const [loginUser,{ error }] =useMutation(LOGIN_MUTATION)
     
        
     }
-    
+ 
 
      
     
