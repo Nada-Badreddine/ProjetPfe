@@ -1,26 +1,37 @@
 const { ApolloServer, gql } = require('apollo-server');
 const mongoose = require("mongoose");
-const Product  = require("./models/product");
+
 const axios = require('axios');
 
 const typeDefs = gql`
 
-type User {
- _id: ID 
- name: String
- password: String
- email: String
 
+type userObject {
+ _id: ID
+ name: String
+ email: String
+ password: String
+ role: String 
 }
 
-type UserLogin {
+
+
+type User {
  _id: ID 
- name: String
- password: String
- email: String
+ user: userObject
  token: String
 
 }
+
+
+
+ input ProductInput {
+  name: String
+  price: Int
+  category: ID 
+
+
+ }
 
 type Product {
  _id: ID 
@@ -43,18 +54,13 @@ type Category {
 }
 
 
- input ProductInput {
-  name: String
-  price: Int
-  category: ID 
 
-
- }
 
  input UserInput {
   name: String
   password: String
   email: String 
+  role: String
  
 
 
@@ -85,7 +91,7 @@ type Query {
     deleteProduct(_id: ID) : Product
     deleteCategory(_id: ID) : Category
     createUser(input: UserInput) : User
-    loginUser(input: UserInput) : UserLogin
+    loginUser(input: UserInput) : User
   }
 
   
@@ -125,7 +131,6 @@ const resolvers = {
 
 
 
-
 },
 
 Mutation: {
@@ -143,8 +148,9 @@ deleteCategory: async (_, { _id }) => {
 
 createProduct: async (_, { input }) => {
     const res = await axios.post("http://localhost:4005/product/",input);
-  
-    return res.data;
+    
+
+    return res.data.result;
 },
 createCategory: async (_, { input }) => {
     const res = await axios.post("http://localhost:4005/category/",input);
@@ -154,7 +160,7 @@ createCategory: async (_, { input }) => {
 
 createUser: async (_, { input }) => {
     const resUser = await axios.post("http://localhost:4005/register",input);
-  
+ 
     return resUser.data;
 },
 
@@ -168,7 +174,7 @@ loginUser: async (_, { input }) => {
 updateProduct: async (_, { input,_id }) => {
     const res = await axios.put("http://localhost:4005/product/" + _id ,input);
     console.log("aaaaa",res)
-    return res.data;
+    return res.data.result;
 },
 
 
