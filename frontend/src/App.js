@@ -15,13 +15,14 @@ import {
 import {onError} from "@apollo/client/link/error"
 
 import ProductByCatego from './pages/ProductByCatego'
-
+import MyProducts from './pages/MyProducts'
 import Register from './pages/Register'
 import Login from './pages/login'
 import Category from './pages/category'
 import Product from './pages/Product'
 import Add from './pages/add'
 import AddCatego from './pages/addCatego'
+import ListFavoris from './pages/listFavoris'
 import {UserProvider}  from './context/UserContext';
 import 'antd/dist/antd.css';
 
@@ -67,11 +68,13 @@ function App() {
          <Route exact path='/ProdbyCateg/:catgId'  element={<ProductByCatego />}   /> 
         
          <Route exact path='/register'  element={<Register />}   /> 
+         <Route exact path='/myproducts'  element={<MyProducts />}   /> 
          <Route exact path='/login'  element={<Login />}   /> 
           <Route exact path='/category'  element={<Category />}   /> 
           <Route exact path='/product'  element={<Product />}   /> 
           <Route exact path='/add'  element={<Add />}   /> 
           <Route exact path='/addCategory'  element={<AddCatego />}   /> 
+          <Route exact path='/listFavoris'  element={<ListFavoris />}   /> 
       
       
 

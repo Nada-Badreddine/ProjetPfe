@@ -16,6 +16,20 @@ mutation createProduct ($input: ProductInput)
   }
 `
 
+export const CREATE_FAVORITE_MUTATION = gql`
+mutation createFavoriteList ($input: FavoriteInput)
+{
+    createFavoriteList (input:$input )
+ {
+  user,
+ ProductId,
+ productName,
+ productImg
+  
+ }
+  }
+`
+
 
 export const CREATE_CATEGORY_MUTATION = gql`
 mutation createCategory ($input: CategoryInput)
@@ -41,6 +55,15 @@ export const DELETE_CATEGORY_MUTATION = gql`
 	mutation deleteCategory($_id: ID) {
 		deleteCategory(_id: $_id) {
 			name
+		}
+	}
+
+`
+
+export const DELETE_FAV_PRODUCT_MUTATION = gql`
+	mutation deleteFavProduct($ProductId: ID) {
+		deleteFavProduct(ProductId: $ProductId) {
+			productName
 		}
 	}
 
@@ -82,9 +105,13 @@ mutation loginUser ($input: UserInput)
    
  {
  token,
+
  user{
+     id,
      name,
      role
+     
+    
    }
 
   

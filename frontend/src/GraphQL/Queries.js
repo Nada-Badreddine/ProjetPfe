@@ -11,7 +11,9 @@ query{
     name,
     price,
     category,
-    _id
+    _id,
+    productImg,
+    description
  
    
   }
@@ -20,6 +22,42 @@ query{
 } 
  
  `
+
+
+ export const LOAD_Favoris = gql`
+query{
+    listFavoris{
+    user,
+    productName,
+    ProductId,
+    productImg
+ 
+   
+  }
+
+
+} 
+ 
+ `
+
+export const LOAD_Favoris_byUserID = gql`
+  query ($user: ID){
+    listFavorisByUser(user: $user)
+    
+   {
+    user,
+    productName,
+    ProductId,
+    productImg
+     
+    }
+  }
+`
+
+
+
+
+
  export const LOAD_CATEGORIES = gql`
 query{
     categories{

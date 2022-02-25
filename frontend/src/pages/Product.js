@@ -46,6 +46,7 @@ console.log("test1",data?.products)
          {data?.products?.map((item)=>{
              return <tr> <td> name: {item?.name}  </td>
           <td> price : {item.price}</td>
+           
            <td>catego:{item?.category}</td>
           
           

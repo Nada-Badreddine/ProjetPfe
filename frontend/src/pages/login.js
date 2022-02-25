@@ -4,6 +4,7 @@ import {useMutation} from '@apollo/client'
 import {LOGIN_MUTATION} from '../GraphQL/Mutations'
 import { useNavigate } from 'react-router-dom';
 import { AUTH_TOKEN } from '../constants';
+import { User_ID } from '../constants';
 const Login = () => {
 const[email,setEmail]=useState('')
 const[password,setPassword]=useState('')
@@ -26,6 +27,9 @@ const [loginUser,{ error }] =useMutation(LOGIN_MUTATION)
           
           onCompleted: ({ loginUser }) => {
     localStorage.setItem(AUTH_TOKEN, loginUser.token);
+    localStorage.setItem(User_ID, loginUser.user.id);
+
+    console.log("test",loginUser.user.id)
 
      if (loginUser.user.role === 'client') {
       navigate('/crudproduct');;
