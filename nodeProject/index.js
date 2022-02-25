@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const Product = require("./models/product");
+const Favorite = require("./models/favorite");
 const Category = require("./models/category");
 const User = require("./models/user");
 var cors = require("cors");
@@ -29,8 +30,42 @@ app.get("/product", async function (req, res) {
 
   }
   
+  });
+
+  //GET all les favoris 
+
+  app.get("/favoriteList", async function (req, res) {
+  try{
+    const Favoris = await Favorite.find();
+
+    return res.json({ result: Favoris, status: 200 }).status(200);
+
+
+
+  } catch (err){
+    return res.json({ result: null, status: 500, error: err }).status(500);
+
+  }
+  
   
 });
+
+
+
+//get liste de favoris by userID 
+
+app.get("/listFavoris/:user", async function (req, res) {
+   try {
+     
+ const listFav = await Favorite.find({ user: req.params.user});
+ 
+  return res.json({ message: "ok", status: 200, result: listFav }).status(200);
+ 
+   } catch (err) {
+     return res.json({ result: null, status: 500, error: err }).status(500);
+	}
+});
+
 
 app.get("/product/:category", async function (req, res) {
    try {
@@ -43,6 +78,14 @@ app.get("/product/:category", async function (req, res) {
      return res.json({ result: null, status: 500, error: err }).status(500);
 	}
 });
+
+
+
+
+
+
+
+
 
 app.get("/category/:id", async function (req, res) {
    try {
@@ -70,12 +113,20 @@ app.get("/category", async function (req, res) {
   
 });
 
+app.delete("/Favproduct/:id", async function (req, res) {
+  await Favorite.deleteOne({ProductId: req.params.id });
+  return res
+    .json({ message: "ok", result: req.params.id, status: 200 })
+    .status(200);
+});
+
 app.delete("/product/:id", async function (req, res) {
   await Product.deleteOne({ _id: req.params.id });
   return res
     .json({ message: "ok", result: req.params.id, status: 200 })
     .status(200);
 });
+
 
 app.delete("/category/:id", async function (req, res) {
   await Category.deleteOne({ _id: req.params.id });
@@ -103,6 +154,18 @@ app.post("/product",async function (req, res) {
 		return res.json({ result: null, status: 500, error: err }).status(500);
 	}
   });
+
+app.post("/favorite",async function (req, res) {
+	try {
+		const Favoris = await Favorite.create(req.body);
+    console.log("body",req.body)
+		return res.json({ result: Favoris, status: 200 }).status(200);
+	} catch (err) {
+		return res.json({ result: null, status: 500, error: err }).status(500);
+	}
+  });  
+
+
 
   app.post("/category",async function (req, res) {
 	try {
@@ -146,7 +209,7 @@ app.put("/category/:id", async function (req, res) {
 
 app.post('/register', async function (req, res) {
 
-const {name, email, password }=req.body;
+const {name, email, password,role }=req.body;
 
 
  if(!name|| !email || !password)
@@ -158,7 +221,8 @@ const {name, email, password }=req.body;
 const newUser= new User({      //create new User
   name,
   email,
-  password
+  password,
+  role:role || "client"
 });
 bcrypt.genSalt(10,(err,salt)=>{
   bcrypt.hash(newUser.password,salt,(err,hash)=>{
@@ -179,7 +243,9 @@ bcrypt.genSalt(10,(err,salt)=>{
            user:{
              id:user.id,
              name:user.name,
-             email:user.email
+             email:user.email,
+             password:user.password,
+             role:user.role
 
 
            }
@@ -238,7 +304,8 @@ app.post('/auth', async function (req, res) {
            user:{
              id:user.id,
              name:user.name,
-             email:user.email
+             email:user.email,
+             role:user.role
            }
          }
 
@@ -271,13 +338,8 @@ res.status(500).json({ error: err.message });
 
 
 
-{/*app.get('/user',auth, async function (req, res) {
 
-  User.findById(req.user.id)
-  .select('-password')
-  .then(user=>res.json(user))
-})
-*/}
+
 app.get("/", auth, async (req, res) => {
 const user = await User.findById(req.user);
 res.json({
