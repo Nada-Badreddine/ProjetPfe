@@ -23,20 +23,70 @@ type User {
 
 }
 
+type userlog {
+  id: ID
+  name: String
+  email: String
+  role: String
+
+
+}
+
+type UserLogin{
+  token: String
+  user: userlog
+}
+
+input UserInput {
+  
+  name: String
+  password: String
+  email: String 
+  role: String
+ 
+
+
+ }
+
 
 
  input ProductInput {
   name: String
   price: Int
   category: ID 
+  productImg: String
+  description: String
 
 
  }
+
+ input FavoriteInput {
+    user: ID
+    ProductId: ID
+    productName: String
+    productImg: String
+
+ }
+
+
+ type Favorite {
+ _id: ID 
+ user: ID
+ ProductId: ID
+ productName: String
+ productImg: String
+ }
+
+ 
+
+
 
 type Product {
  _id: ID 
  name: String
  price: Int
+ productImg: String
+ description: String
  category: ID
 
  
@@ -56,15 +106,7 @@ type Category {
 
 
 
- input UserInput {
-  name: String
-  password: String
-  email: String 
-  role: String
  
-
-
- }
 
  input CategoryInput {
   name: String
@@ -77,6 +119,8 @@ type Category {
 
 type Query {
     products: [Product]
+    listFavoris: [Favorite]
+    listFavorisByUser(user: ID): [Favorite]
     categories: [Category]
     getProduct(category: ID): [Product]
 
@@ -86,12 +130,14 @@ type Query {
   type Mutation {
     
     createProduct(input: ProductInput) : Product
+    createFavoriteList(input: FavoriteInput) : Favorite
     createCategory(input: CategoryInput) : Category
     updateProduct(_id: ID, input: ProductInput): Product
     deleteProduct(_id: ID) : Product
+    deleteFavProduct(ProductId: ID) : Favorite
     deleteCategory(_id: ID) : Category
     createUser(input: UserInput) : User
-    loginUser(input: UserInput) : User
+    loginUser(input: UserInput) : UserLogin
   }
 
   
@@ -109,9 +155,15 @@ const resolvers = {
 
                   async products (){
                     const a = await axios.get("http://localhost:4005/product");
+
+                   
                    
 
                     return a.data.result; },
+
+                     async listFavoris (){
+                     const a = await axios.get("http://localhost:4005/favoriteList");
+                     return a.data.result; },
 
                      async categories (){
                     const categ = await axios.get("http://localhost:4005/category");
@@ -120,9 +172,13 @@ const resolvers = {
                     return categ.data.result; },
 
                     getProduct: async (_, {category }) => {
-    const res = await axios.get("http://localhost:4005/product/" + category);
-    return res.data.result;
-},
+                    const res = await axios.get("http://localhost:4005/product/" + category);
+                    return res.data.result;},
+
+                    listFavorisByUser: async (_, {user }) => {
+                    const res = await axios.get("http://localhost:4005/listFavoris/" + user);
+                    return res.data.result;},
+
 
                    
 
@@ -140,6 +196,11 @@ deleteProduct: async (_, { _id }) => {
     const res = await axios.delete("http://localhost:4005/product/" + _id);
     return res.data;
 },
+
+deleteFavProduct: async (_, { ProductId }) => {
+    const res = await axios.delete("http://localhost:4005/Favproduct/" + ProductId);
+    return res.data;
+},
 deleteCategory: async (_, { _id }) => {
     const res = await axios.delete("http://localhost:4005/category/" + _id);
     return res.data;
@@ -148,6 +209,13 @@ deleteCategory: async (_, { _id }) => {
 
 createProduct: async (_, { input }) => {
     const res = await axios.post("http://localhost:4005/product/",input);
+    
+
+    return res.data.result;
+},
+
+createFavoriteList: async (_, { input }) => {
+    const res = await axios.post("http://localhost:4005/favorite",input);
     
 
     return res.data.result;
