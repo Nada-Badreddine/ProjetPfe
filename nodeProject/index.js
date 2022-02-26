@@ -12,10 +12,13 @@ const auth=require('./middleware/auth')
 app.use(cors());
 const bcrypt=require('bcryptjs')
 const config=require('config')
+import routes from './routes';
+
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 
 
+routes(app);
 
 app.get("/product", async function (req, res) {
   try{
@@ -87,31 +90,31 @@ app.get("/product/:category", async function (req, res) {
 
 
 
-app.get("/category/:id", async function (req, res) {
-   try {
-  const categ = await Category.findOne({ _id: req.params.id });
+// app.get("/category/:id", async function (req, res) {
+//    try {
+//   const categ = await Category.findOne({ _id: req.params.id });
 
-  return res.json({ message: "ok", status: 200, result: categ }).status(200);
-   } catch (err) {
-     return res.json({ result: null, status: 500, error: err }).status(500);
-	}
-});
+//   return res.json({ message: "ok", status: 200, result: categ }).status(200);
+//    } catch (err) {
+//      return res.json({ result: null, status: 500, error: err }).status(500);
+// 	}
+// });
 
-app.get("/category", async function (req, res) {
-  try{
-    const categ = await Category.find();
+// app.get("/category", async function (req, res) {
+//   try{
+//     const categ = await Category.find();
 
-    return res.json({ result: categ, status: 200 }).status(200);
+//     return res.json({ result: categ, status: 200 }).status(200);
 
 
 
-  } catch (err){
-    return res.json({ result: null, status: 500, error: err }).status(500);
+//   } catch (err){
+//     return res.json({ result: null, status: 500, error: err }).status(500);
 
-  }
+//   }
   
   
-});
+// });
 
 app.delete("/Favproduct/:id", async function (req, res) {
   await Favorite.deleteOne({ProductId: req.params.id });
@@ -128,12 +131,12 @@ app.delete("/product/:id", async function (req, res) {
 });
 
 
-app.delete("/category/:id", async function (req, res) {
-  await Category.deleteOne({ _id: req.params.id });
-  return res
-    .json({ message: "ok", result: req.params.id, status: 200 })
-    .status(200);
-});
+// app.delete("/category/:id", async function (req, res) {
+//   await Category.deleteOne({ _id: req.params.id });
+//   return res
+//     .json({ message: "ok", result: req.params.id, status: 200 })
+//     .status(200);
+// });
 
 app.get("/product/:id", async function (req, res) {
    try {
@@ -147,8 +150,9 @@ app.get("/product/:id", async function (req, res) {
 
 app.post("/product",async function (req, res) {
 	try {
-		const produit = await Product.create(req.body);
     console.log("body",req.body)
+
+		const produit = await Product.create(req.body);
 		return res.json({ result: produit, status: 200 }).status(200);
 	} catch (err) {
 		return res.json({ result: null, status: 500, error: err }).status(500);
@@ -167,15 +171,15 @@ app.post("/favorite",async function (req, res) {
 
 
 
-  app.post("/category",async function (req, res) {
-	try {
-		const categ = await Category.create(req.body);
+  // app.post("/category",async function (req, res) {
+	// try {
+	// 	const categ = await Category.create(req.body);
   
-		return res.json({ result: categ, status: 200 }).status(200);
-	} catch (err) {
-		return res.json({ result: null, status: 500, error: err }).status(500);
-	}
-  });
+	// 	return res.json({ result: categ, status: 200 }).status(200);
+	// } catch (err) {
+	// 	return res.json({ result: null, status: 500, error: err }).status(500);
+	// }
+  // });
 
 
 
