@@ -24,12 +24,12 @@ const [deleteCategory] =useMutation(DELETE_CATEGORY_MUTATION)
          {data?.categories?.map((item)=>{
              return <tr> <td> name: {item?.name}  </td>
           <td> price : {item?.reference}</td>
-          <button onClick={()=> navigate('/ProdbyCateg/'+ item._id)}> see products</button>
+          <button onClick={()=> navigate('/ProdbyCateg/'+ item.id)}> see products</button>
 <button
 onClick={
               ()=>
                deleteCategory(
-        { variables: { _id: item._id  },
+        { variables: { id: item.id  },
        
         refetchQueries: [
 				{

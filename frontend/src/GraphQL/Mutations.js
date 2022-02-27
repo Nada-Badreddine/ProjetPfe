@@ -43,8 +43,8 @@ mutation createCategory ($input: CategoryInput)
 `
 
 export const DELETE_PRODUCT_MUTATION = gql`
-	mutation deleteProduct($_id: ID) {
-		deleteProduct(_id: $_id) {
+	mutation deleteProduct($id: ID) {
+		deleteProduct(id: $id) {
 			name
 		}
 	}
@@ -52,8 +52,8 @@ export const DELETE_PRODUCT_MUTATION = gql`
 `
 
 export const DELETE_CATEGORY_MUTATION = gql`
-	mutation deleteCategory($_id: ID) {
-		deleteCategory(_id: $_id) {
+	mutation deleteCategory($id: ID) {
+		deleteCategory(id: $id) {
 			name
 		}
 	}
@@ -70,9 +70,9 @@ export const DELETE_FAV_PRODUCT_MUTATION = gql`
 `
 
 export const UPDATE_PRODUCT_MUTATION = gql`
-mutation updateProduct ($_id: ID,$input: ProductInput)
+mutation updateProduct ($id: ID,$input: ProductInput)
 {
-    updateProduct(_id: $_id,input:$input )
+    updateProduct(id: $id,input:$input )
  {
    name,price
  }

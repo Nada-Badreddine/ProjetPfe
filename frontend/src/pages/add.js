@@ -66,7 +66,7 @@ console.log('aaaaaaa',category)
             {data?.categories.map((item) => (
               
               <option
-               value={item._id}>{item.name}
+               value={item.id}>{item.name}
               </option>
             )
             

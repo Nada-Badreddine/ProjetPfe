@@ -39,7 +39,7 @@ const editBtn=()=>{
 
 updateProduct(
         { variables: { 
-            _id: props.ProductId,
+            id: props.ProductId,
           
           input:{name:name,price:Number(price)} 
         },

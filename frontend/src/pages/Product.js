@@ -55,7 +55,7 @@ console.log("test1",data?.products)
           <button onClick={
               ()=>
                deleteProduct(
-        { variables: { _id: item._id  },
+        { variables: { id: item.id  },
        
         refetchQueries: [
 				{
@@ -89,7 +89,7 @@ console.log("test1",data?.products)
                                     setIsModalVisible={setOpenModal}
                                     nameProduct={currentProduct?.name}
                                     priceProduct={currentProduct?.price}
-                                    ProductId={currentProduct?._id}
+                                    ProductId={currentProduct?.id}
                                     
                                     
                                     />

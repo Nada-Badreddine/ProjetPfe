@@ -11,7 +11,7 @@ query{
     name,
     price,
     category,
-    _id,
+    id,
     productImg,
     description
  
@@ -63,7 +63,7 @@ query{
     categories{
     name,
     reference,
-    _id
+    id
  
    
   }
