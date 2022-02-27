@@ -1,32 +1,24 @@
 import React,{useState} from 'react'
 import {useMutation} from '@apollo/client'
-import {CREATE_USER_MUTATION} from '../GraphQL/Mutations'
+import {CREATE_USER_MUTATION} from '../GraphQL/User/Mutations'
 const Register = () => {
 
     const[name,setName]=useState('')
-
     const[email,setEmail]=useState('')
     const[password,setPassword]=useState('')
     const[selectedRole,setSelectedRole]=useState('')
-
-
     const [createUser,{ error }] =useMutation(CREATE_USER_MUTATION)
 
-const handleChangeRole=(e)=>{
+    const handleChangeRole=(e)=>{
     setSelectedRole(e.target.value)
-
-}
+    }
 
     const addUser=()=>{
- createUser(
+        createUser(
         {
-          
             variables:{
                 input:{name,password,email,role:selectedRole}
-                
-              
             }
-            
         }
     )
  if(error){
@@ -36,10 +28,9 @@ const handleChangeRole=(e)=>{
   return (
     <div>
     <h2>Register Now</h2>
-    
      <div className="form-group">
-                        <label>Name : </label>
-                        <input type="text"
+        <label>Name : </label>
+            <input type="text"
                         onChange={(e) => setName(e.target.value)} className="form-control" />
                     </div>
                     <div className="form-group">

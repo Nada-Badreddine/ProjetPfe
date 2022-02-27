@@ -1,28 +1,13 @@
-import{
-ApolloClient ,
-InMemoryCache,
-ApolloProvider,
-HttpLink,
-from,
-}from "@apollo/client";
-
+import{ ApolloClient , InMemoryCache, ApolloProvider, HttpLink, from, }from "@apollo/client";
 import React from 'react';
-import {
-  BrowserRouter,
-  Routes, // Just Use Routes instead of "Switch"
-  Route,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route,} from "react-router-dom";
 import {onError} from "@apollo/client/link/error"
-
-import ProductByCatego from './pages/ProductByCatego'
-import MyProducts from './pages/MyProducts'
-import Register from './pages/Register'
-import Login from './pages/login'
-import Category from './pages/category'
-import Product from './pages/Product'
-import Add from './pages/add'
-import AddCatego from './pages/addCatego'
-import ListFavoris from './pages/listFavoris'
+import ListProductByCategory from './Pages/ListProductByCategory'
+import ProductsList from './Pages/ProductsList'
+import CategoriesList from './Pages/CategoriesList'
+import Register from './Pages/Register'
+import Login from './Pages/Login'
+import FavorisList from './Pages/FavorisList'
 import {UserProvider}  from './context/UserContext';
 import 'antd/dist/antd.css';
 
@@ -31,62 +16,38 @@ const errorLink =onError(({ graphqlErrors,networkError})=>{
     graphqlErrors.map(({
       message,location,path}) =>{
 alert(`graphql error ${message}`);})}})
-    
-      
-    
-    
+
  const link= from([
   errorLink,
   new HttpLink({uri:"http://localhost:4001/graphql"}),
-])   
-    
-
-
+])
 
 const client= new ApolloClient({
   cache: new InMemoryCache(),
   link:link,
 }
-  
 )
-
 function App() {
-
 
   const name =  localStorage.getItem("USERNAME") || '';
   const token = localStorage.getItem("TOKEN") || '';
   return (
     <ApolloProvider client={client}>
-    <div>
-
-
-<UserProvider tokenValue={token} userName={name}>
-
-<BrowserRouter>
-      <Routes>
-
-         <Route exact path='/ProdbyCateg/:catgId'  element={<ProductByCatego />}   /> 
-        
-         <Route exact path='/register'  element={<Register />}   /> 
-         <Route exact path='/myproducts'  element={<MyProducts />}   /> 
-         <Route exact path='/login'  element={<Login />}   /> 
-          <Route exact path='/category'  element={<Category />}   /> 
-          <Route exact path='/product'  element={<Product />}   /> 
-          <Route exact path='/add'  element={<Add />}   /> 
-          <Route exact path='/addCategory'  element={<AddCatego />}   /> 
-          <Route exact path='/listFavoris'  element={<ListFavoris />}   /> 
-      
-      
-
-          
-       
-      </Routes>
-    </BrowserRouter>
-    </UserProvider>
-    </div>
-    </ApolloProvider>
-    
-   
+      <>
+        <UserProvider tokenValue={token} userName={name}>
+          <BrowserRouter>
+            <Routes>
+              <Route exact path='/ProductsList'  element={<ProductsList />}   />
+              <Route exact path='/CategoriesList'  element={<CategoriesList />}   />
+              <Route exact path='/ListProductByCategory/:catgId'  element={<ListProductByCategory />}   />
+              <Route exact path='/FavorisList'  element={<FavorisList />}   />
+              <Route exact path='/register'  element={<Register />}   />
+              <Route exact path='/login'  element={<Login />}   />
+            </Routes>
+          </BrowserRouter>
+        </UserProvider>
+     </>
+   </ApolloProvider>
   );
 }
 

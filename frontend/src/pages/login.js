@@ -1,10 +1,11 @@
 import React,{useState,useContext} from 'react'
 import UserContext from '../context/UserContext'
 import {useMutation} from '@apollo/client'
-import {LOGIN_MUTATION} from '../GraphQL/Mutations'
+import {LOGIN_MUTATION} from '../GraphQL/User/Mutations'
 import { useNavigate } from 'react-router-dom';
 import { AUTH_TOKEN } from '../constants';
 import { User_ID } from '../constants';
+
 const Login = () => {
 const[email,setEmail]=useState('')
 const[password,setPassword]=useState('')

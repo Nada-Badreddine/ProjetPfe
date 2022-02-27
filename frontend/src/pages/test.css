@@ -1,0 +1,8 @@
+#defaultImage {
+    display: block;
+    margin: 0 0 5px 0;
+ }
+ [class^="onClickImage"] {
+    height: 20px;
+    cursor: pointer;
+ }
