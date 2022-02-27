@@ -21,10 +21,7 @@ mutation createFavoriteList ($input: FavoriteInput)
 {
     createFavoriteList (input:$input )
  {
-  user,
- ProductId,
- productName,
- productImg
+  user
   
  }
   }
@@ -63,7 +60,7 @@ export const DELETE_CATEGORY_MUTATION = gql`
 export const DELETE_FAV_PRODUCT_MUTATION = gql`
 	mutation deleteFavProduct($ProductId: ID) {
 		deleteFavProduct(ProductId: $ProductId) {
-			productName
+			user
 		}
 	}
 

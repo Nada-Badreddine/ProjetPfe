@@ -47,11 +47,12 @@ const MyProducts = (props) => {
 
 
   const AddToFavoris = (item) => {
+    console.log("item", item)
     createFavoriteList(
       {
 
         variables: {
-          input: { ProductId: item.id, productName: item.name, productImg: item.productImg, user: userConecte }
+          input: { ProductId: item.id,  user: userConecte }
         }
       }
     )
@@ -86,7 +87,7 @@ const MyProducts = (props) => {
               <Card sx={{ minWidth: 275 }}>
                 {data?.products?.map((item) => {
                   const ExistingFavorite = dataFavoris?.listFavorisByUser?.find((elem) => {
-                    return elem.ProductId === item?.id;
+                    return elem.ProductId.id === item?.id;
 
 
                   }

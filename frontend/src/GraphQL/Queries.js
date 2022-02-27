@@ -1,11 +1,11 @@
-import {gql} from '@apollo/client'
- 
+import { gql } from '@apollo/client'
 
 
 
 
 
- export const LOAD_PRODUCT = gql`
+
+export const LOAD_PRODUCT = gql`
 query{
     products{
     name,
@@ -24,14 +24,13 @@ query{
  `
 
 
- export const LOAD_Favoris = gql`
+export const LOAD_Favoris = gql`
 query{
     listFavoris{
-    user,
-    productName,
-    ProductId,
-    productImg
- 
+    user
+    ProductId {
+      id
+    }
    
   }
 
@@ -45,11 +44,13 @@ export const LOAD_Favoris_byUserID = gql`
     listFavorisByUser(user: $user)
     
    {
-    user,
-    productName,
-    ProductId,
-    productImg
-     
+    user
+    ProductId {
+      id
+      price
+      name
+      productImg
+    }
     }
   }
 `
@@ -58,7 +59,7 @@ export const LOAD_Favoris_byUserID = gql`
 
 
 
- export const LOAD_CATEGORIES = gql`
+export const LOAD_CATEGORIES = gql`
 query{
     categories{
     name,
@@ -73,7 +74,7 @@ query{
  
  `
 
- export const LOAD_PRODUCT_byID = gql`
+export const LOAD_PRODUCT_byID = gql`
   query ($category: ID){
     getProduct(category: $category)
     
@@ -88,4 +89,4 @@ query{
 
 
 
- ;
+  ;

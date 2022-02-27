@@ -47,13 +47,16 @@ const ListFavoris = (props) => {
         component="img"
 
         style={{width:"120px", height:"120px" }}
-        image={item?.productImg}
+        image={item?.ProductId.productImg}
         alt="t-shirt"/>
         <Typography variant="body2">
-          {item?.productName}
+          {item?.ProductId.name}
          
         </Typography>
-        
+        <Typography variant="body2">
+          {item?.ProductId.price}
+         
+        </Typography>
      
       </CardContent>
       

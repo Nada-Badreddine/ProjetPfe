@@ -47,17 +47,12 @@ input UserInput {
  input FavoriteInput {
     user: ID
     ProductId: ID
-    productName: String
-    productImg: String
-
  }
 
  type Favorite {
  id: ID 
  user: ID
- ProductId: ID
- productName: String
- productImg: String
+ ProductId: Product
  }
 
 type Product {
@@ -157,6 +152,7 @@ const resolvers = {
     },
 
     createFavoriteList: async (_, { input }) => {
+      console.log("icii")
       const res = await axios.post("http://localhost:4005/favorite", input);
 
 
