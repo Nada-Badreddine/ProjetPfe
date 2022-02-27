@@ -1,11 +1,19 @@
-const mongoose = require("mongoose");
-const { Schema } = mongoose;
+
+import mongoose, { Schema } from 'mongoose';
+
 const schema = new Schema({
+    name: String,
+    reference:Number,
+},
+{
+  timestamps: true,
+  toJSON: {
+    transform: (doc, category) => {
+        category.id = category._id;
+      delete category._id;
+      delete category.__v;
+    },
+  },
+});
 
- name: String,
- reference:Number,
-
-
-    });
-    
-module.exports = mongoose.model("Category", schema);
+export default mongoose.model('Category', schema);
