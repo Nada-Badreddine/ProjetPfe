@@ -12,7 +12,7 @@ const ProductList = props => (
             <TextField source="name" />
             <TextField source="price" />
             <TextField source="description" />
-            <TextField source="category" />
+            <TextField label='Category name' source="category.name" />
             <EditButton />
         </Datagrid>
     </List>

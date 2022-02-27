@@ -32,7 +32,6 @@ const handleChangeRole=(e)=>{
  if(error){
         console.log(error)
     }
-    console.log("aaaaaaaaaaaa",selectedRole)
     }
   return (
     <div>

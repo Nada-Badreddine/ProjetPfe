@@ -35,7 +35,6 @@ const handleChangeCateg=(e)=>{
     setCategSelected(e.target.value)
       
 }
-console.log('aaaaaaa',category)
   return (
     <div>
    

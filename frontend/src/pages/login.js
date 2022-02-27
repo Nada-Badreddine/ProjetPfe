@@ -29,7 +29,6 @@ const [loginUser,{ error }] =useMutation(LOGIN_MUTATION)
     localStorage.setItem(AUTH_TOKEN, loginUser.token);
     localStorage.setItem(User_ID, loginUser.user.id);
 
-    console.log("test",loginUser.user.id)
 
      if (loginUser.user.role === 'client') {
       navigate('/crudproduct');;

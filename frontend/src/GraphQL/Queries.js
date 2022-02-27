@@ -10,7 +10,6 @@ query{
     products{
     name,
     price,
-    category,
     id,
     productImg,
     description

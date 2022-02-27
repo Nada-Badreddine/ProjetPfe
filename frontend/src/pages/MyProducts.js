@@ -47,7 +47,6 @@ const MyProducts = (props) => {
 
 
   const AddToFavoris = (item) => {
-    console.log("item", item)
     createFavoriteList(
       {
 

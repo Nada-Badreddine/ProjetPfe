@@ -29,7 +29,6 @@ const showModal = (item) => {
   };
 
 
-console.log("test1",data?.products)
 
 
   return (

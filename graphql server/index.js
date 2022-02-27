@@ -55,19 +55,19 @@ input UserInput {
  ProductId: Product
  }
 
+ type Category {
+  id: ID 
+  name: String
+  reference: Int
+ }
+
 type Product {
  id: ID 
  name: String
  price: Int
  productImg: String
  description: String
- category: ID
-}
-
-type Category {
- id: ID 
- name: String
- reference: Int
+ category: Category
 }
 
  input CategoryInput {
@@ -118,7 +118,7 @@ const resolvers = {
     },
 
     getProduct: async (_, { category }) => {
-      const res = await axios.get("http://localhost:4005/products/" + category);
+      const res = await axios.get("http://localhost:4005/productsByCategory/" + category);
       return res.data.result;
     },
 
@@ -152,10 +152,7 @@ const resolvers = {
     },
 
     createFavoriteList: async (_, { input }) => {
-      console.log("icii")
       const res = await axios.post("http://localhost:4005/favorite", input);
-
-
       return res.data.result;
     },
     createCategory: async (_, { input }) => {
@@ -178,7 +175,6 @@ const resolvers = {
 
     updateProduct: async (_, { input, id }) => {
       const res = await axios.put("http://localhost:4005/products/" + id, input);
-      console.log("aaaaa", res)
       return res.data.result;
     },
   },

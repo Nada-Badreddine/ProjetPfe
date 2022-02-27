@@ -5,7 +5,6 @@ const apiUrl = 'http://localhost:4005';
 const httpClient = fetchUtils.fetchJson;
 const dataProviderFucntion =   {
     getList: (resource, params) => {
-        console.log("hereee")
         const { page, perPage } = params.pagination;
         const { field, order } = params.sort;
         const query = {
@@ -16,7 +15,6 @@ const dataProviderFucntion =   {
         const url = `${apiUrl}/${resource}`;
 
         return httpClient(url).then(({ headers, json }) => {
-            console.log("json", json)
             return{
                 data: json.result,
                // total: parseInt(headers.get('content-range').split('/').pop(), 10),
@@ -28,7 +26,6 @@ const dataProviderFucntion =   {
     getOne: (resource, params) =>
         httpClient(`${apiUrl}/${resource}/${params.id}`).then(({ json }) =>
         {
-            console.log('jsin', json)
             return {
                 data: json.result
  
@@ -43,7 +40,6 @@ const dataProviderFucntion =   {
         };
         const url = `${apiUrl}/${resource}?${stringify(query)}`;
         return httpClient(url).then(({ json }) => {
-console.log("json getmany", json)
             return { data: json.result };
         })
     },
@@ -84,7 +80,6 @@ console.log("json getmany", json)
     },
 
     create: (resource, params) => {
-console.log("params", params)
       return  httpClient(`${apiUrl}/${resource}`, {
             method: 'POST',
             body: JSON.stringify(params.data),
