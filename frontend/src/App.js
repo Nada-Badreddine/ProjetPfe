@@ -8,8 +8,9 @@ import CategoriesList from './Pages/CategoriesList'
 import Register from './Pages/Register'
 import Login from './Pages/Login'
 import FavorisList from './Pages/FavorisList'
-import {UserProvider}  from './context/UserContext';
+import {UserProvider}  from './Context/UserContext';
 import 'antd/dist/antd.css';
+
 
 const errorLink =onError(({ graphqlErrors,networkError})=>{
   if(graphqlErrors){
@@ -29,7 +30,9 @@ const client= new ApolloClient({
 )
 function App() {
 
-  const name =  localStorage.getItem("USERNAME") || '';
+  const name = localStorage.getItem("user-ID");
+   
+  //const name =  localStorage.getItem("USERNAME") || '';
   const token = localStorage.getItem("TOKEN") || '';
   return (
     <ApolloProvider client={client}>

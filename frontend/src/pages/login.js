@@ -1,5 +1,5 @@
 import React,{useState,useContext} from 'react'
-import UserContext from '../context/UserContext'
+import UserContext from '../Context/UserContext'
 import {useMutation} from '@apollo/client'
 import {LOGIN_MUTATION} from '../GraphQL/User/Mutations'
 import { useNavigate } from 'react-router-dom';
@@ -49,11 +49,12 @@ const [loginUser,{ error }] =useMutation(LOGIN_MUTATION)
     }
  
 
-     
+   const {user} =useContext(UserContext)
     
   return (
     <div>
     <h2>Login to your account</h2>
+    <h1>hello ,{user.name}</h1>
     
                     <div className="form-group">
                         <label>Email : </label>
